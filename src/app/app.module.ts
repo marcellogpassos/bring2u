@@ -11,6 +11,7 @@ import { firebaseOptions } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     BrowserModule,
     CommonModule,
+    CoreModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseOptions),
