@@ -9,17 +9,11 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Bring2u</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container" class="ion-padding">
-    <p *ngIf="user">Bem vindo, {{ user.firstName }}!</p>
+  <div *ngIf="user" id="container" class="ion-padding">
+    <p>Bem vindo, {{ user.firstName }}!</p>
   </div>
 
-  <ion-item-group>
+  <ion-item-group *ngIf="groups">
     <ion-item-divider>
       <ion-label>Meus Grupos</ion-label>
     </ion-item-divider>
@@ -30,7 +24,8 @@
     </ion-item>
   </ion-item-group>
 
-  <ion-fab class="fab" vertical="bottom" horizontal="end" edge slot="fixed">
+  <ion-fab class="fab" vertical="bottom" horizontal="end" edge slot="fixed"
+    routerLink="/shopping/create" routerDirection="forward">
     <ion-fab-button>
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>

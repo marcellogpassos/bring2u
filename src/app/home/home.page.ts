@@ -6,6 +6,7 @@ import { GroupsService } from 'src/app/core/groups.service';
 import { UsersService } from 'src/app/core/users.service';
 import { Group } from 'src/app/shared/model/group.model';
 import { UserData } from 'src/app/shared/model/user-data.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomePage implements OnInit, OnDestroy {
   groups: Group[];
 
   constructor(
+    private nav: NavController,
     private authService: AuthService,
     private usersService: UsersService,
     private groupsService: GroupsService) {
@@ -28,12 +30,10 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.initUserData();
   }
 
   ngOnDestroy(): void {
-    console.log('ngOnDestroy');
     this.userDataSubs.unsubscribe();
     this.groupsSubs.unsubscribe();
   }

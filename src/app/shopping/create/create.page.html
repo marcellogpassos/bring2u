@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="home" text="Voltar"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding">
+    <p>Aqui você poderá informar aos seus grupos que irá às compras.</p>
+  </div>
+
+  <ion-list class="ion-margin-bottom">
+    <ion-item>
+      <ion-label position="floating">Onde você vai?</ion-label>
+      <ion-input type="text" [(ngModel)]="shopping.where"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Quando você vai?</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [min]="min" [(ngModel)]="shopping.when"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">A que horas?</ion-label>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="shopping.whatTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Que grupos poderão ver?</ion-label>
+      <ion-select multiple="true" cancelText="Cancelar" okText="Confirmar" [(ngModel)]="shopping.visibility">
+        <ion-select-option *ngFor="let group of groups" [value]="group.uid">{{ group.groupName }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <ion-button color="primary" expand="block" (click)="confirm ()" [disabled]="!valid()">Confirmar</ion-button>
+  </div>
+
+</ion-content>
