@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
-import { GroupsService } from 'src/app/core/groups.service';
 import { UsersService } from 'src/app/core/users.service';
-import { Group } from 'src/app/shared/model/group.model';
+import { Shopping } from 'src/app/shared/model/shopping.model';
 import { UserData } from 'src/app/shared/model/user-data.model';
-import { NavController } from '@ionic/angular';
+import { ShoppingsService } from 'src/app/shopping/shoppings.service';
 
 @Component({
   selector: 'app-home',
@@ -16,16 +15,16 @@ import { NavController } from '@ionic/angular';
 export class HomePage implements OnInit, OnDestroy {
 
   userDataSubs: Subscription;
-  groupsSubs: Subscription;
+  shoppingsSubs: Subscription;
+  createdByUserDataSubs: Subscription[];
 
   user: UserData;
-  groups: Group[];
+  news: Shopping[];
 
   constructor(
-    private nav: NavController,
     private authService: AuthService,
     private usersService: UsersService,
-    private groupsService: GroupsService) {
+    private shoppingsService: ShoppingsService) {
 
   }
 
@@ -35,7 +34,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userDataSubs.unsubscribe();
-    this.groupsSubs.unsubscribe();
+    this.shoppingsSubs.unsubscribe();
+    this.createdByUserDataSubs.forEach(sub => sub.unsubscribe());
   }
 
   initUserData() {
@@ -43,13 +43,23 @@ export class HomePage implements OnInit, OnDestroy {
       .pipe(flatMap(user => this.usersService.findByUid(user.uid)))
       .subscribe(userData => {
         this.user = userData;
-        this.initGroups();
+        this.initNews();
       });
   }
 
-  initGroups() {
-    this.groupsSubs = this.groupsService.findByUser(this.user)
-      .subscribe(groups => this.groups = groups);
+  initNews() {
+    this.shoppingsSubs = this.shoppingsService.getNewsByUser(this.user)
+      .subscribe(result => {
+        this.news = result;
+        this.initCreatedByUserData();
+      });
+  }
+
+  initCreatedByUserData() {
+    this.createdByUserDataSubs = this.news.map(shopping => {
+      return this.usersService.findByUid(shopping.createdBy)
+        .subscribe(result => shopping.createdByUserData = result);
+    });
   }
 
 }

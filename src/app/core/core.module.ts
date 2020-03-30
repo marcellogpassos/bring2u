@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GroupsService } from './groups.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { UsersService } from './users.service';
+import { PendentInvitationsService } from './pendent-invitations.service';
 
 
 
@@ -14,6 +15,7 @@ import { UsersService } from './users.service';
   ],
   providers: [
     GroupsService,
+    PendentInvitationsService,
     UsersService,
   ]
 })

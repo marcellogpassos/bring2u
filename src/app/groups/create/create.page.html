@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="groups/list" text="Voltar"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding">
+    <p>Informe os e-mails dos participantes do grupo. Os que ainda não possuem cadastro no aplicativo serão convidados.
+    </p>
+  </div>
+
+  <ion-list class="ion-margin-bottom">
+    <ion-item>
+      <ion-label position="floating">Como o novo grupo irá se chamar?</ion-label>
+      <ion-input type="text" [(ngModel)]="groupName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">E-mail do participante</ion-label>
+      <ion-input type="text" [(ngModel)]="emailTemp"></ion-input>
+    </ion-item>
+    <ion-item class="add-participant">
+      <ion-button size="small" color="primary" fill="outline" [disabled]="!emailTemp" (click)="addParticipant()">
+        Adicionar Participante</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-group *ngIf="participants?.length">
+    <ion-item-divider>
+      <ion-label>Participantes</ion-label>
+    </ion-item-divider>
+    <ion-item *ngFor="let participant of participants">
+      <ion-icon name="person-circle-outline" slot="start" [color]="participant.user ? 'success' : 'danger'"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <ion-text>
+          <p><small>{{ participant.email }}</small></p>
+        </ion-text>
+        <ion-text>
+          <p *ngIf="participant.user">{{ participant.user.firstName + ' ' + participant.user.lastName }}</p>
+          <p *ngIf="!participant.user">Usuário não cadastrado (convite pendente)</p>
+        </ion-text>
+      </ion-label>
+      <ion-icon class="remove-participant" name="trash-outline" slot="end" color="danger" (click)="remove(participant)"></ion-icon>
+    </ion-item>
+  </ion-item-group>
+
+  <div *ngIf="participants?.length" class="ion-padding">
+    <ion-button color="primary" expand="block" (click)="confirm()" [disabled]="!groupName">Confirmar</ion-button>
+  </div>
+
+</ion-content>

@@ -9,18 +9,21 @@
 
 <ion-content [fullscreen]="true">
 
-  <div *ngIf="user" id="container" class="ion-padding">
+  <div *ngIf="user" class="ion-padding">
     <p>Bem vindo, {{ user.firstName }}!</p>
+    <p>Aqui você poderá ver quando seus amigos vão às compras. Toque no item da coleção "Novidades" para solicitar que tragam algo.</p>
   </div>
 
-  <ion-item-group *ngIf="groups">
+  <ion-item-group *ngIf="news" class="ion-margin-top">
     <ion-item-divider>
-      <ion-label>Meus Grupos</ion-label>
+      <ion-label>Novidades</ion-label>
     </ion-item-divider>
-    <ion-item *ngFor="let group of groups">
-      <ion-icon name="people-circle-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>{{ group.groupName }}</ion-label>
-      <ion-icon *ngIf="group.createdBy === user.uid" name="shield-checkmark-outline" slot="end" color="success"></ion-icon>
+    <ion-item *ngFor="let new of news">
+      <ul>
+        <li><strong>Quem: </strong>{{ new.createdByUserData?.firstName }}</li>
+        <li><strong>Onde vai: </strong>{{ new.where }}</li>
+        <li><strong>Quando: </strong>{{ new.timestamp | date:'medium' }}</li>
+      </ul>
     </ion-item>
   </ion-item-group>
 

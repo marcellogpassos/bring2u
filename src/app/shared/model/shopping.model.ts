@@ -1,11 +1,15 @@
+import { Timestamp } from 'src/app/shared/util';
+import { UserData } from './user-data.model';
+
 export interface Shopping {
     uid?: string;
     where: string;
     when: string;
     whatTime: string;
     visibility: string[];
-    timestamp?: Date;
+    timestamp?: Date | number | Timestamp;
     createdBy?: string;
+    createdByUserData?: UserData;
     createdAt?: Date;
 }
 

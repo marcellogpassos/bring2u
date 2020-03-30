@@ -1,5 +1,5 @@
 export interface Group {
-    uid: string;
+    uid?: string;
     createdAt: Date | any;
     createdBy: string;
     groupName: string;

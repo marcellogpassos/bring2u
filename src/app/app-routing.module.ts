@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'shopping',
     loadChildren: () => import('./shopping/shopping.module').then( m => m.ShoppingModule)
+  },  {
+    path: 'groups',
+    loadChildren: () => import('./groups/groups.module').then( m => m.GroupsPageModule)
   },
+
 
 ];
 

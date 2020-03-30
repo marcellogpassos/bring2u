@@ -12,7 +12,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-shopping-create',
   templateUrl: './create.page.html',
   styleUrls: ['./create.page.scss'],
 })

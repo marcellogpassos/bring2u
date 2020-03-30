@@ -7,6 +7,7 @@ import { auth } from 'firebase';
 
 export const environment = {
   production: false,
+  groupMaxSize: 10,
 };
 
 export const firebaseOptions: FirebaseOptions = {

@@ -18,9 +18,9 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
+      title: 'Grupos',
+      url: '/groups/list',
+      icon: 'people'
     },
     {
       title: 'Outbox',
