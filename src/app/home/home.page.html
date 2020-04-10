@@ -7,15 +7,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
 
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Bring2u</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <p *ngIf="user">Bem vindo, {{ user.firstName }}!</p>
+  <div *ngIf="user" class="ion-padding">
+    <p>Bem vindo, {{ user.firstName }}!</p>
+    <p>Aqui você poderá ver quando seus amigos vão às compras.
+      Toque no item da coleção "Novidades" para solicitar que tragam algo.</p>
   </div>
+
+  <ion-item-group *ngIf="news" class="ion-margin-top">
+    <ion-item-divider class="ion-margin-bottom">
+      <ion-label>Novidades</ion-label>
+    </ion-item-divider>
+    <ion-item *ngIf="!news?.length">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <ion-text class="ion-padding">Nenhuma novidade por enquanto.</ion-text>
+    </ion-item>
+    <app-shopping *ngFor="let new of news" [shopping]="new" [user]="user"></app-shopping>
+  </ion-item-group>
+
+  <ion-fab class="fab" vertical="bottom" horizontal="end" edge slot="fixed" routerLink="/shopping/create"
+    routerDirection="forward">
+    <ion-fab-button>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

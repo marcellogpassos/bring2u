@@ -2,10 +2,11 @@ import { PhoneNumber } from './phone-number.model';
 import { Address } from './address.model';
 
 export interface UserData {
-    address: Address;
+    uid: string;
+    address?: Address;
     email: string;
     firstName: string;
     lastName: string;
-    phoneNumber: PhoneNumber;
+    phoneNumber?: PhoneNumber;
     username: string;
 }

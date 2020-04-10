@@ -1,5 +1,7 @@
 {
   "name": "bring2u",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
