@@ -6,6 +6,7 @@ import { GroupsService } from 'src/app/core/groups.service';
 import { UsersService } from 'src/app/core/users.service';
 import { Group } from 'src/app/shared/model/group.model';
 import { UserData } from 'src/app/shared/model/user-data.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-groups-list',
@@ -21,6 +22,7 @@ export class ListPage implements OnInit, OnDestroy {
   groups: Group[];
 
   constructor(
+    private navController: NavController,
     private authService: AuthService,
     private usersService: UsersService,
     private groupsService: GroupsService) { }
@@ -34,7 +36,7 @@ export class ListPage implements OnInit, OnDestroy {
     this.groupsSubs.unsubscribe();
   }
 
-  initUserData() {
+  private initUserData() {
     this.userDataSubs = this.authService.getUserCredential()
       .pipe(flatMap(user => this.usersService.findByUid(user.uid)))
       .subscribe(userData => {
@@ -43,9 +45,13 @@ export class ListPage implements OnInit, OnDestroy {
       });
   }
 
-  initGroups() {
+  private initGroups() {
     this.groupsSubs = this.groupsService.findByUser(this.user)
       .subscribe(groups => this.groups = groups);
+  }
+
+  open(group: Group) {
+    this.navController.navigateForward(['/groups', group.uid, 'shoppings']);
   }
 
 }

@@ -30,6 +30,14 @@ export class ShoppingsService {
       );
   }
 
+  getByGroup(group: Group): Observable<Shopping[]> {
+    return this.firestore.collection<Shopping>('shoppings', ref => ref.where('visibility', 'array-contains', group.uid))
+      .valueChanges()
+      .pipe(
+        tap(shoppings => shoppings.forEach(shopping => shopping.timestamp = convertTimestamp(shopping.timestamp as Timestamp))),
+      );
+  }
+
   getNewsByGroupList(user: UserData, groupList: Group[]): Observable<Shopping[]> {
     const groupIdList = groupList.map(group => group.uid);
     const now = new Date();

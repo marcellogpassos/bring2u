@@ -17,7 +17,7 @@
     <ion-item-divider>
       <ion-label>Meus Grupos</ion-label>
     </ion-item-divider>
-    <ion-item *ngFor="let group of groups">
+    <ion-item *ngFor="let group of groups" (click)="open(group)">
       <ion-icon name="people-circle-outline" slot="start" color="primary"></ion-icon>
       <ion-label>{{ group.groupName }}</ion-label>
       <ion-icon *ngIf="group.createdBy === user.uid" name="shield-checkmark-outline" slot="end" color="success">

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="groups/list" text="Voltar"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding">
+    <h2>{{group?.groupName}}</h2>
+  </div>
+
+  <ion-item-group *ngIf="shoppings" class="ion-margin-top">
+    <ion-item-divider class="ion-margin-bottom">
+      <ion-label>Idas às compras</ion-label>
+    </ion-item-divider>
+    <ion-item *ngIf="!shoppings?.length">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <ion-text class="ion-padding">Nenhuma ida às compras cadastrada até agora.</ion-text>
+    </ion-item>
+    <app-shopping *ngFor="let shopping of shoppings" [shopping]="shopping" [user]="user"></app-shopping>
+  </ion-item-group>
+
+</ion-content>

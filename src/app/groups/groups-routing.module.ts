@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreatePage } from './create/create.page';
 import { ListPage } from './list/list.page';
+import { ShoppingsPage } from './shoppings/shoppings.page';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreatePage,
+  },
+  {
+    path: ':id/shoppings',
+    component: ShoppingsPage
   }
 ];
 
@@ -18,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class GroupsPageRoutingModule {}
+export class GroupsPageRoutingModule { }

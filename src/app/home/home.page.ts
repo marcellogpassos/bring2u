@@ -16,7 +16,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   userDataSubs: Subscription;
   shoppingsSubs: Subscription;
-  createdByUserDataSubs: Subscription[];
 
   user: UserData;
   news: Shopping[];
@@ -35,7 +34,6 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userDataSubs.unsubscribe();
     this.shoppingsSubs.unsubscribe();
-    this.createdByUserDataSubs.forEach(sub => sub.unsubscribe());
   }
 
   initUserData() {
@@ -51,15 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.shoppingsSubs = this.shoppingsService.getNewsByUser(this.user)
       .subscribe(result => {
         this.news = result;
-        this.initCreatedByUserData();
       });
-  }
-
-  initCreatedByUserData() {
-    this.createdByUserDataSubs = this.news.map(shopping => {
-      return this.usersService.findByUid(shopping.createdBy)
-        .subscribe(result => shopping.createdByUserData = result);
-    });
   }
 
 }

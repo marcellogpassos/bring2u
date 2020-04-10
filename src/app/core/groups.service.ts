@@ -21,12 +21,20 @@ export class GroupsService {
     this.groupsCollection = this.firestore.collection('groups');
   }
 
+  findById(id: string): Observable<Group> {
+    return this.groupsCollection.doc<Group>(id)
+      .valueChanges()
+      .pipe(
+        tap(group => this.convertSingle(group))
+      );
+  }
+
   findByUser(user: UserData): Observable<Group[]> {
     return this.firestore
       .collection<Group>('groups', ref => ref.where('participants', 'array-contains', user.uid))
       .valueChanges()
       .pipe(
-        tap(groups => groups.forEach(group => group.createdAt = convertTimestamp(group.createdAt)))
+        tap(groups => groups.forEach(group => this.convertSingle(group)))
       );
   }
 
@@ -47,6 +55,12 @@ export class GroupsService {
     const anonymousUsers = participants.filter(p => !p.user).map(p => p.email);
     this.pendentInvitationsService.createAll(anonymousUsers, ref.id);
     return ref;
+  }
+
+  private convertSingle(group: Group) {
+    if (group && group.createdAt) {
+      group.createdAt = convertTimestamp(group.createdAt);
+    }
   }
 
 }

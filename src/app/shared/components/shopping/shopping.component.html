@@ -1,0 +1,29 @@
+<ion-item *ngIf="shopping">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-shopping-info [shopping]="shopping"></app-shopping-info>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="showManageShoppingButton()">
+        <ion-button color="primary" size="small" expand="block">
+          <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+          Gerenciar Pedidos
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="showCreateOrderButton()">
+        <ion-button color="primary" size="small" expand="block">
+          <ion-icon name="cart-outline" slot="start"></ion-icon>
+          Fazer um Pedido
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="showManageOrderButton()">
+        <ion-button color="primary" size="small" expand="block">
+          <ion-icon name="cart-outline" slot="start"></ion-icon>
+          Gerenciar meu Pedido
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>
